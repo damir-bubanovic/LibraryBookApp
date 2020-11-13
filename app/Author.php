@@ -24,6 +24,7 @@ class Author extends Model
     	$this->attributes['birth'] = Carbon::parse($birth);
     }
 
+
 }
 
 

@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::post('/books', 'BooksController@store');
 Route::resource('/books', 'BooksController');
 Route::resource('/author', 'AuthorController');

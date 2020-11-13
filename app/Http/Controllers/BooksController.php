@@ -36,8 +36,8 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'     =>  'required',
-            'author'    =>  'required'
+            'title'         =>  'required',
+            'author_id'     =>  'required|numeric'
         ]);
 
         $book = Book::create($data);
@@ -77,8 +77,8 @@ class BooksController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'title'     =>  'required',
-            'author'    =>  'required'
+            'title'         =>  'required',
+            'author_id'     =>  'required|numeric'
         ]);
         Book::where('id', $id)->update($data);
 
