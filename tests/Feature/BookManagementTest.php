@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Book;
 
-class AddBookTest extends TestCase
+class BookManagementTest extends TestCase
 {
     // Every Time refreshes database
     use RefreshDatabase;
@@ -19,7 +19,7 @@ class AddBookTest extends TestCase
      */
     public function testABookCanBeAddedToLibrary()
     {
-        // if we do not do this we can not get the correct error because of bubbling???
+        // Exception Bubbling
         $this->withoutExceptionHandling();
 
         $data = [
@@ -29,9 +29,13 @@ class AddBookTest extends TestCase
 
         $response = $this->post('/books', $data);
 
-        $response->assertOk();
+        $book = Book::first();
+
+        // $response->assertOk();
 
         $this->assertDatabaseHas('books', $data);
+
+        $response->assertRedirect('/books/' . $book->id);
 
         // $this->assertDatabaseCount('books', 1);
     }
@@ -39,7 +43,7 @@ class AddBookTest extends TestCase
 
     public function testATitleIsRequired()
     {
-        // We have disabled this to prevent bubbling???
+        // Disable Exception Bubbling
         // $this->withoutExceptionHandling();
 
         $data = [
@@ -73,11 +77,31 @@ class AddBookTest extends TestCase
 
         $this->assertEquals('New Title', Book::first()->title);
         $this->assertEquals('New Author', Book::first()->author);
+
+        $response->assertRedirect('/books/' . $book->id);
+    }
+
+
+    public function testABookCanBeDeleted()
+    {
+        $data = [
+            'title'     =>  'Cool Book Title',
+            'author'    =>  'Victor'
+        ];
+
+        $this->post('/books', $data);
+        $book = Book::first();
+
+        $response = $this->delete('/books/' . $book->id);
+
+        $this->assertCount(0, Book::all());
+
+        // redirect
+        $response->assertRedirect('/books');
     }
 
 
 }
-
 
 
 

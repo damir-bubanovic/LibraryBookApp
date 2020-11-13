@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
-use App\Book;
 
-class BooksController extends Controller
+class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,34 +36,32 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title'     =>  'required',
-            'author'    =>  'required'
+
+        Author::create([
+            'name'  =>  'Marko',
+            'birth' =>  '05/14/1998',
         ]);
 
-        $book = Book::create($data);
-
-        return redirect('/books/' . $book->id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Author $author)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Author $author)
     {
         //
     }
@@ -71,33 +70,23 @@ class BooksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Author $author)
     {
-        $data = $request->validate([
-            'title'     =>  'required',
-            'author'    =>  'required'
-        ]);
-        Book::where('id', $id)->update($data);
-
-        return redirect('/books/' . $id);
-
+        //
     }
-
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Author $author)
     {
-        Book::destroy($id);
-
-        return redirect('/books');
+        //
     }
-
 }
+
