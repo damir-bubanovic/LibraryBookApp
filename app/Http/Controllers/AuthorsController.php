@@ -6,7 +6,7 @@ use App\Author;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class AuthorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,12 +36,12 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-
-        Author::create([
-            'name'  =>  'Marko',
-            'birth' =>  '05/14/1998',
+        $data = $request->validate([
+            'name'      =>  'required',
+            'birth'     =>  'required',
         ]);
 
+        Author::create($data);
     }
 
     /**

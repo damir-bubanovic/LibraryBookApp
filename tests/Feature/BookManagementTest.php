@@ -18,7 +18,7 @@ class BookManagementTest extends TestCase
      * Dummy Data
      * @return [type] [description]
      */
-    public function data()
+    private function data()
     {
         return [
             'title'         =>  'Cool Book Title',

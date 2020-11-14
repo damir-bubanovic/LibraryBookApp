@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('/books', 'BooksController');
-Route::resource('/author', 'AuthorController');
+Route::resource('/authors', 'AuthorsController');
 // Route::resource('/checkout', 'CheckoutController');
 Route::post('/checkout/{book}', 'CheckoutController@store');
 Route::post('/checkin/{book}', 'CheckinController@store');
